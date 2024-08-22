@@ -22,19 +22,20 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
             <TextView
-                android:id="@+id/tpText"
+                android:id="@+id/txt_titulo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:gravity="center_vertical"
                 android:paddingStart="16dp"
-                android:text="TP N°1"
+                android:text="@string/txt_titulo"
                 android:textColor="@android:color/white"
                 android:textSize="20sp" />
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
     <!-- Contenedor de botones en el centro superior -->
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -42,32 +43,36 @@
         android:layout_gravity="center_horizontal|top"
         android:backgroundTint="#03A9F4"
         android:orientation="vertical"
-        android:paddingTop="100dp">
+        android:paddingTop="100dp"
+        app:layout_anchor="@+id/linearLayout"
+        app:layout_anchorGravity="center">
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/btn_ejercicio1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="EJERCICIO 1" />
+            android:onClick="Ejercicio1"
+            android:text="@string/btn_ejercicio1" />
 
     </LinearLayout>
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btn_ejercicio2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
-        android:text="EJERCICIO 2"
+        android:text="@string/btn_ejercicio2"
         app:layout_anchor="@+id/linearLayout"
         app:layout_anchorGravity="center" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="105dp"
-        android:layout_height="62dp"
-        android:text="INTEGRANTES"
+        android:id="@+id/txt_integrantes"
+        android:layout_width="168dp"
+        android:layout_height="134dp"
+        android:text="@string/txt_integrantes"
+        android:textSize="20sp"
         app:layout_anchor="@+id/linearLayout"
         app:layout_anchorGravity="bottom|center" />
 
