@@ -23,9 +23,9 @@ public class Ejercicio1 extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_ejercicio1);
 
-        et1 = (EditText)findViewById(R.id.txt_primerNumero);
-        et2 = (EditText)findViewById(R.id.txt_segundoNumero);
-        result = (TextView)findViewById(R.id.txt_resultado);
+        et1 = findViewById(R.id.txt_primerNumero);
+        et2 = findViewById(R.id.txt_segundoNumero);
+        result = findViewById(R.id.txt_resultado);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -41,6 +41,6 @@ public class Ejercicio1 extends AppCompatActivity {
         int suma = num1 + num2;
         String resultado = String.valueOf(suma);
 
-        result.setText(resultado);
+        result.setText("Resultado: "+resultado);
     }
 }
