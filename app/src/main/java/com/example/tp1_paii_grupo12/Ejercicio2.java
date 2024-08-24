@@ -27,9 +27,10 @@ public class Ejercicio2 extends AppCompatActivity {
 
     private void configurarBotones() {
         int[] botonesNumeros = {
-                R.id.button_0, R.id.button_1, R.id.button_2, R.id.button_3,
-                R.id.button_4, R.id.button_5, R.id.button_6, R.id.button_7,
-                R.id.button_8, R.id.button_9
+                R.id.button_7, R.id.button_8, R.id.button_9,
+                R.id.button_4, R.id.button_5, R.id.button_6,
+                R.id.button_1, R.id.button_2, R.id.button_3,
+                R.id.button_0
         };
 
         for (int id : botonesNumeros) {
@@ -54,36 +55,46 @@ public class Ejercicio2 extends AppCompatActivity {
     }
 
     private void clickNumero(Button boton) {
-        // Si se hizo clic en un operador, reiniciar la entrada actual
         if (operadorClickeado) {
             entradaActual = "";
             operadorClickeado = false;
         }
-        // Si el botón de número es un "0" y entradaActual está vacía, no hacer nada
-        if (boton.getText().toString().equals("0") && entradaActual.isEmpty()) {
-            return;
-        }
-        // Manejar la entrada de un número negativo
-        if (entradaActual.isEmpty() && boton.getText().toString().equals("-")) {
-            entradaActual = "-";
-        } else {
-            entradaActual += boton.getText().toString();
-        }
+        entradaActual += boton.getText().toString();
         pantalla.setText(entradaActual);
     }
 
     private void clickOperador(Button boton) {
+        String nuevoOperador = boton.getText().toString();
 
-        if (!entradaActual.isEmpty()) {
-            try {
+        if (nuevoOperador.equals("-")) {
+            // Manejar el caso para ingresar números negativos
+            if (entradaActual.isEmpty()) {
+                entradaActual = "-";
+                pantalla.setText(entradaActual);
+            } else if (operadorClickeado) {
+                operador = nuevoOperador;
+                pantalla.setText(entradaActual + " " + operador);
+                operadorClickeado = false; // Permite ingresar el siguiente número
+            } else {
                 primerOperando = Double.parseDouble(entradaActual);
-            } catch (NumberFormatException e) {
-                pantalla.setText("Error");
-                return;
+                operador = nuevoOperador;
+                entradaActual = "";
+                operadorClickeado = true;
+                pantalla.setText(primerOperando + " " + operador);
             }
-            operador = boton.getText().toString();
-            entradaActual = "";
-            operadorClickeado = true;
+        } else {
+            if (!entradaActual.isEmpty()) {
+                if (operadorClickeado) {
+                    operador = nuevoOperador;
+                    pantalla.setText(entradaActual + " " + operador);
+                } else {
+                    primerOperando = Double.parseDouble(entradaActual);
+                    operador = nuevoOperador;
+                    entradaActual = "";
+                    operadorClickeado = true;
+                    pantalla.setText(primerOperando + " " + operador);
+                }
+            }
         }
     }
 
@@ -95,7 +106,7 @@ public class Ejercicio2 extends AppCompatActivity {
     }
 
     private void calcularResultado() {
-        if (!entradaActual.isEmpty()) {
+        if (!entradaActual.isEmpty() && !operador.isEmpty()) {
             double segundoOperando;
             try {
                 segundoOperando = Double.parseDouble(entradaActual);
@@ -103,8 +114,7 @@ public class Ejercicio2 extends AppCompatActivity {
                 pantalla.setText("Error");
                 return;
             }
-
-            double resultado;
+            double resultado = 0;
             switch (operador) {
                 case "+":
                     resultado = primerOperando + segundoOperando;
@@ -130,9 +140,7 @@ public class Ejercicio2 extends AppCompatActivity {
             pantalla.setText(String.valueOf(resultado));
             entradaActual = String.valueOf(resultado);
             operador = "";
-        } else {
-            pantalla.setText("Error");
+            operadorClickeado = false;
         }
     }
 }
-
