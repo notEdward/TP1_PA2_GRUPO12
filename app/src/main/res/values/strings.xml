@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">TP1_PAII_GRUPO12</string>
-    <string name="txt_titulo">TP N°1</string>
+    <string name="tv_titulo">TP N°1</string>
     <string name="btn_ejercicio1">EJERCICIO 1</string>
     <string name="btn_ejercicio2">EJERCICIO 2</string>
     <string name="txt_integrantes">
@@ -9,5 +9,12 @@
         Franco Palacin
         Eduardo Romero
     </string>
+
+    <!-- Ejercicio 1-->
+    <string name="tv_suma">SUMA</string>
+    <string name="tv_primerNumero">Primer número:</string>
+    <string name="tv_segundoNumero">Segundo número:</string>
+    <string name="btn_calcular">CALCULAR</string>
+
 </resources>
 

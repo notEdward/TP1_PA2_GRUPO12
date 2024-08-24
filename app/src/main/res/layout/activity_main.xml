@@ -22,13 +22,13 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
             <TextView
-                android:id="@+id/txt_titulo"
+                android:id="@+id/tv_titulo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:gravity="center_vertical"
                 android:paddingStart="16dp"
-                android:text="@string/txt_titulo"
+                android:text="@string/tv_titulo"
                 android:textColor="@android:color/white"
                 android:textSize="20sp" />
         </androidx.appcompat.widget.Toolbar>
