@@ -34,12 +34,7 @@ public class Ejercicio2 extends AppCompatActivity {
 
         for (int id : botonesNumeros) {
             Button boton = findViewById(id);
-            boton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    clickNumber((Button) v);
-                }
-            });
+            boton.setOnClickListener(v -> clickNumero((Button) v));
         }
 
         int[] botonesOperadores = {
@@ -48,43 +43,44 @@ public class Ejercicio2 extends AppCompatActivity {
 
         for (int id : botonesOperadores) {
             Button boton = findViewById(id);
-            boton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    clickOperador((Button) v);
-                }
-            });
+            boton.setOnClickListener(v -> clickOperador((Button) v));
         }
 
         Button botonLimpiar = findViewById(R.id.button_clear);
-        botonLimpiar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                limpiar();
-            }
-        });
+        botonLimpiar.setOnClickListener(v -> limpiar());
 
         Button botonIgual = findViewById(R.id.button_equals);
-        botonIgual.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                calcularResultado();
-            }
-        });
+        botonIgual.setOnClickListener(v -> calcularResultado());
     }
 
-    private void clickNumber(Button boton) {
+    private void clickNumero(Button boton) {
+        // Si se hizo clic en un operador, reiniciar la entrada actual
         if (operadorClickeado) {
             entradaActual = "";
             operadorClickeado = false;
         }
-        entradaActual += boton.getText().toString();
+        // Si el botón de número es un "0" y entradaActual está vacía, no hacer nada
+        if (boton.getText().toString().equals("0") && entradaActual.isEmpty()) {
+            return;
+        }
+        // Manejar la entrada de un número negativo
+        if (entradaActual.isEmpty() && boton.getText().toString().equals("-")) {
+            entradaActual = "-";
+        } else {
+            entradaActual += boton.getText().toString();
+        }
         pantalla.setText(entradaActual);
     }
 
     private void clickOperador(Button boton) {
+
         if (!entradaActual.isEmpty()) {
-            primerOperando = Double.parseDouble(entradaActual);
+            try {
+                primerOperando = Double.parseDouble(entradaActual);
+            } catch (NumberFormatException e) {
+                pantalla.setText("Error");
+                return;
+            }
             operador = boton.getText().toString();
             entradaActual = "";
             operadorClickeado = true;
@@ -100,8 +96,15 @@ public class Ejercicio2 extends AppCompatActivity {
 
     private void calcularResultado() {
         if (!entradaActual.isEmpty()) {
-            double segundoOperando = Double.parseDouble(entradaActual);
-            double resultado = 0;
+            double segundoOperando;
+            try {
+                segundoOperando = Double.parseDouble(entradaActual);
+            } catch (NumberFormatException e) {
+                pantalla.setText("Error");
+                return;
+            }
+
+            double resultado;
             switch (operador) {
                 case "+":
                     resultado = primerOperando + segundoOperando;
@@ -120,10 +123,16 @@ public class Ejercicio2 extends AppCompatActivity {
                         return;
                     }
                     break;
+                default:
+                    pantalla.setText("Error");
+                    return;
             }
             pantalla.setText(String.valueOf(resultado));
             entradaActual = String.valueOf(resultado);
             operador = "";
+        } else {
+            pantalla.setText("Error");
         }
     }
 }
+
