@@ -52,6 +52,9 @@ public class Ejercicio2 extends AppCompatActivity {
 
         Button botonIgual = findViewById(R.id.button_equals);
         botonIgual.setOnClickListener(v -> calcularResultado());
+
+        Button botonBorrarUltimo = findViewById(R.id.button_delete); // Asume que agregaste un botón con id button_delete en el XML
+        botonBorrarUltimo.setOnClickListener(v -> borrarUltimo());
     }
 
     private void clickNumero(Button boton) {
@@ -72,10 +75,12 @@ public class Ejercicio2 extends AppCompatActivity {
                 entradaActual = "-";
                 pantalla.setText(entradaActual);
             } else if (operadorClickeado) {
+                // Si ya se ha presionado un operador, reemplazar el operador anterior
                 operador = nuevoOperador;
                 pantalla.setText(entradaActual + " " + operador);
                 operadorClickeado = false; // Permite ingresar el siguiente número
             } else {
+                // Preparar para restar o para tratar el siguiente número
                 primerOperando = Double.parseDouble(entradaActual);
                 operador = nuevoOperador;
                 entradaActual = "";
@@ -83,8 +88,10 @@ public class Ejercicio2 extends AppCompatActivity {
                 pantalla.setText(primerOperando + " " + operador);
             }
         } else {
+            // Manejar otros operadores
             if (!entradaActual.isEmpty()) {
                 if (operadorClickeado) {
+                    // Reemplazar el operador anterior
                     operador = nuevoOperador;
                     pantalla.setText(entradaActual + " " + operador);
                 } else {
@@ -141,6 +148,20 @@ public class Ejercicio2 extends AppCompatActivity {
             entradaActual = String.valueOf(resultado);
             operador = "";
             operadorClickeado = false;
+        }
+    }
+
+    private void borrarUltimo() {
+        if (!entradaActual.isEmpty()) {
+            entradaActual = entradaActual.substring(0, entradaActual.length() - 1);
+            if (entradaActual.isEmpty()) {
+                pantalla.setText("0");
+            } else {
+                pantalla.setText(entradaActual);
+            }
+        } else if (!operador.isEmpty()) {
+            operador = "";
+            pantalla.setText(entradaActual);
         }
     }
 }
